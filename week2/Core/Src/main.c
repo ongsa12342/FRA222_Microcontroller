@@ -49,6 +49,7 @@ typedef struct
 }GpioStateSave;
 
 GpioStateSave B1 = {1,1};
+unsigned long long int timestamp = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -99,21 +100,33 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-
+  int time_period = 500/1;
+  int mode = 0;
 
   while (1)
   {
     /* USER CODE END WHILE */
+//	  B1.current = HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13);
+//
+//	  if(B1.delay == 1 && B1.current == 0)
+//	  {
+//		  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+//	  }
+//
+//	  B1.delay = B1.current;
 	  B1.current = HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13);
-
-	  if(B1.delay == 1 && B1.current == 0)
+	  if (timestamp <= HAL_GetTick())
 	  {
+		  timestamp += time_period;
 		  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+
 	  }
-
+	  if (B1.delay == 1 && B1.current == 0)
+		  {
+			  mode = (mode+1)%2;
+			  time_period = 1000/((mode+1));
+		  }
 	  B1.delay = B1.current;
-
-
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
