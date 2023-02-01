@@ -105,30 +105,24 @@ int main(void)
 
   while (1)
   {
-    /* USER CODE END WHILE */
-//	  B1.current = HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13);
-//
-//	  if(B1.delay == 1 && B1.current == 0)
-//	  {
-//		  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
-//	  }
-//
-//	  B1.delay = B1.current;
-	  B1.current = HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13);
+	  /* USER CODE END WHILE */
+
+	  B1.current = HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_10);
+
+
 	  if (timestamp <= HAL_GetTick())
 	  {
 		  timestamp += time_period;
-		  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+		  HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_12);
+	  }
 
 	  }
 	  if (B1.delay == 1 && B1.current == 0)
-		  {
-			  mode = (mode+1)%2;
-			  time_period = 1000/((mode+1));
-		  }
+	  {
+		  mode = (mode+1)%2;
+		  time_period = 1000/((mode+1));
+	  }
 	  B1.delay = B1.current;
-    /* USER CODE BEGIN 3 */
-  }
   /* USER CODE END 3 */
 }
 
@@ -229,6 +223,9 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
 
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_12, GPIO_PIN_RESET);
+
   /*Configure GPIO pin : B1_Pin */
   GPIO_InitStruct.Pin = B1_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
@@ -241,6 +238,19 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(LD2_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : PC10 */
+  GPIO_InitStruct.Pin = GPIO_PIN_10;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : PC12 */
+  GPIO_InitStruct.Pin = GPIO_PIN_12;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
 }
 
