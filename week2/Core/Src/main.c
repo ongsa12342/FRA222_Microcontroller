@@ -105,24 +105,10 @@ int main(void)
 
   while (1)
   {
-	  /* USER CODE END WHILE */
+    /* USER CODE END WHILE */
 
-	  B1.current = HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_10);
-
-
-	  if (timestamp <= HAL_GetTick())
-	  {
-		  timestamp += time_period;
-		  HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_12);
-	  }
-
-	  }
-	  if (B1.delay == 1 && B1.current == 0)
-	  {
-		  mode = (mode+1)%2;
-		  time_period = 1000/((mode+1));
-	  }
-	  B1.delay = B1.current;
+    /* USER CODE BEGIN 3 */
+  }
   /* USER CODE END 3 */
 }
 
